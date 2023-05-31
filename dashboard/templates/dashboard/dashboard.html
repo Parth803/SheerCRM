@@ -1,0 +1,112 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<html>
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+</head>
+<body class="w3-black">
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
+  </header>
+  <hr>
+
+  <div class="w3-container">
+    <h5>General Stats</h5>
+    <p>Leads Count</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-green" style="width:100%">{{leads.count}}</div>
+    </div>
+    <p>Clients Count</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-orange" style="width:100%">{{clients.count}}</div>
+    </div>
+
+    <p>Client to Lead Ratio</p>
+    <div class="w3-grey">
+      <div class="w3-container w3-center w3-padding w3-red" style="width:{{rate}}%">{{rate}}%</div>
+    </div>
+  </div>
+  
+  <hr>
+  <div class="w3-container">
+  <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-half">
+        <h5>Leads</h5>
+        <ul class="w3-ul w3-card-4 w3-white">
+            {% for lead in leads %}
+                <li class="w3-padding-16">
+                    <span class="w3-xlarge">{{ lead.name }}</span><br>
+                    <p class="text-xs">Status: {{ lead.get_status_display }}</p>
+                    <p class="text-xs">Priority: {{ lead.get_priority_display }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+      </div>
+      <div class="w3-half">
+        <h5>Clients</h5>
+        <ul class="w3-ul w3-card-4 w3-white">
+            {% for client in clients %}
+            <li class="w3-padding-16">
+                <span class="w3-xlarge">{{ client.name }}</span><br>
+                <a class='text-xs' href="{% url 'clients:detail' client.pk %}">Details</a>
+            </li>
+            {% endfor %}
+        </ul>
+       </div>
+  </div>
+  <hr>
+
+  <!-- End page content -->
+</div>
+
+</body>
+</html>
+{% endblock %}
+
+<!-- <div class="py-6 px-6">
+    <h1 class="mb-6 text-xl">Dashboard</h1>
+
+    <div class="flex space-x-4">
+        <div class="w-1/2 px-4 py-6 bg-gray-100 rounded-xl leads">
+            <h2 class="mb-4 text-lg">Newest leads</h2>
+
+            {% for lead in leads %}
+                <div class="mb-2 lead">
+                    <h3 class="font-semibold">{{ lead.name }}</h3>
+
+                    <p class="text-xs">Status: {{ lead.get_status_display }}</p>
+                    <p class="text-xs">Priority: {{ lead.get_priority_display }}</p>
+
+                    <a href="{% url 'leads:detail' lead.pk %}">Details</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="w-1/2 px-4 py-6 bg-gray-100 rounded-xl clients">
+            <h2 class="mb-4 text-lg">Newest clients</h2>
+
+            {% for client in clients %}
+                <div class="mb-2 client">
+                    <h3 class="font-semibold">{{ client.name }}</h3>
+
+                    <a href="{% url 'clients:detail' client.pk %}">Details</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div> -->
